@@ -6,10 +6,10 @@ case $1 in
 		cond v1.1 (bash)
 		Usage:
 		    cond [-h|--help|-v|--version]
-		    cond ARGUMENTS
+		    cond [-t|--test] ARGUMENTS
 		    cond [-n|--no-test] ARGUMENTS
 		Flags:
-		    -n,--no-test:	test whether the arguments given can run 
+		    -n,--no-test:   test whether the arguments given can run 
 		                    without error
 		    -h,--help:      display this help message
 		    -v,--version:   display version information
@@ -27,6 +27,8 @@ case $1 in
 		else
 			echo "DOES NOT RUN"
 		fi;;
+	-t|--test)
+		shift 1;;&
 	*)
 		if test $@
 		then
