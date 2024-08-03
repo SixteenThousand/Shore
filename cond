@@ -5,18 +5,18 @@ case $1 in
 		cat <<- EOF
 		cond v1.1 (bash)
 		Usage:
-            cond [-h|--help|-v|--version]
-			cond ARGUMENTS
-			cond [-n|--no-test] ARGUMENTS
+		    cond [-h|--help|-v|--version]
+		    cond ARGUMENTS
+		    cond [-n|--no-test] ARGUMENTS
 		Flags:
-			-n,--no-test:	test whether the arguments given can run 
-							without error
-			-h,--help:		display this help message
-			-v,--version:	display version information
+		    -n,--no-test:	test whether the arguments given can run 
+		                    without error
+		    -h,--help:      display this help message
+		    -v,--version:   display version information
 		By default (i.e. without the --no-test flag), cond passes its 
 		arguments straight to test.
 		EOF
-        ;;
+		;;
 	-v|--version)
 		echo 'cond v1.1 (bash)';;
 	-n|--no-test)
