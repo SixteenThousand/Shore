@@ -1,7 +1,7 @@
 #!/bin/sh
 
 STALE_CMD=$(cat $HOME/.bash_history* | fzf)
-read -p "About to run >>$STALE_CMD<<. Proceed (y/n)? " PPROCEED
+read -p "About to run >>$STALE_CMD<<. Proceed (y/N)? " PPROCEED
 if [ $PPROCEED = 'y' ]
 then
     eval $STALE_CMD
