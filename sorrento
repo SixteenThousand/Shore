@@ -15,16 +15,16 @@ do
 		-e|--end-msg)
 			END_MSG=$2
 			shift 1;;
-		*) CMD+=($1);;
+		*) CMD+="$1 ";;
 	esac
 	shift 1
 done
 
 # run the command
-(${CMD[@]} && echo "Done!" > $ISDONE) &
+($CMD && echo "Done!" > $ISDONE) &
 
 # print the command being run
-# printf "\x1b[1m-> "${CMD[@]}"\x1b[0m\n"
+printf "\x1b[1m-> $CMD\x1b[0m\n"
 
 # display a sorrento/loading spinner
 while true
