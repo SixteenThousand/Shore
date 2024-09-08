@@ -33,7 +33,7 @@ NOTES:
 end
 
 if set -ql _flag_version
-    echo "twist version 1.2"
+    echo "twist version 1.2 [part of the Shore suite]"
     return 0
 end
 

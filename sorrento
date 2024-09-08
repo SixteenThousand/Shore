@@ -10,7 +10,7 @@ DELAY=0.2
 
 function print_help {
 	cat <<- EOF
-	sorrento loading spinner, part of the Shore suite, v0.1
+	sorrento loading spinner, v1.0 [part of the Shore suite]
 	Usage:
 	sorrento [[-w|--wait-msg] WAITING_MESSAGE] 
 		[[-e|--end-msg] END_MESSAGE] [-v|--verbose] COMMAND ARGUMENTS...

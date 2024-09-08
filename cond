@@ -3,7 +3,7 @@
 case $1 in
 	-h|--help)
 		cat <<- EOF
-		cond v1.1 (bash)
+		cond v1.1 (bash) [part of the Shore suite]
 		Usage:
 		    cond [-h|--help|-v|--version]
 		    cond [-t|--test] ARGUMENTS
