@@ -1,5 +1,0 @@
-#!/usr/bin/sh
-
-cat $1 | jq . > ./$1.tmp
-trash $1
-mv $1.tmp $1
