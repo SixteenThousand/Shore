@@ -1,0 +1,48 @@
+#!/bin/sh
+
+WAIT_MSG="Waiting"
+END_MSG="Done!"
+declare -a CMD
+ISDONE=$(mktemp done-XXXX)
+
+# parse arguments
+while [ -n "$1" ]
+do
+	case $1 in
+		-w|--wait-msg) 
+			WAIT_MSG=$2
+			shift 1;;
+		-e|--end-msg)
+			END_MSG=$2
+			shift 1;;
+		*) CMD+=($1);;
+	esac
+	shift 1
+done
+
+# run the command
+(${CMD[@]} && echo "Done!" > $ISDONE) &
+
+# print the command being run
+# printf "\x1b[1m-> "${CMD[@]}"\x1b[0m\n"
+
+# display a sorrento/loading spinner
+while true
+do
+	printf "$WAIT_MSG | \r"
+	sleep 0.5
+	printf "$WAIT_MSG / \r"
+	sleep 0.5
+	printf "$WAIT_MSG - \r"
+	sleep 0.5
+	printf "$WAIT_MSG \\ \r"
+	sleep 0.5
+	if [ -n "$(cat $ISDONE)" ]
+	then
+		printf "\n$END_MSG\n"
+		echo "" > $ISDONE
+		break
+	fi
+done
+
+rm $ISDONE
