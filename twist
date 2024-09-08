@@ -1,0 +1,87 @@
+#!/bin/fish
+
+argparse 'h/help' 'v/version' \
+    't/body-type=+' 's/send=+' \
+    'm/header-output=+' 'o/body-output=+' -- $argv
+or return
+
+
+# print help message, if specified
+if set -ql _flag_help
+    echo "\
+twist [OPTIONS] [HTTP_METHOD] [URL] [[-s | --send] REQUEST_BODY_FILE]
+
+Uses curl to send a http request. URL is the url to send the request to,
+& HTTP_METHOD is the http method (GET,POST,PATCH,etc.) to use.
+Use the --send/-s option to specify a request body from a file. The file 
+must be in JSON format.
+
+OPTIONS:
+-t | --body-type : The format of the response body. Defaults to JSON.
+-m | --header-output : The name of a file in which to dump the received
+    header data. If unspecified, dumps it into a temporary file.
+-o | --body-output : The name of a file in which to dump the received
+    header data. If unspecified, dumps it into a temporary file.
+-v | --version : print version information"
+    return 0
+end
+
+if set -ql _flag_version
+    echo "twist version 1.1"
+    return 0
+end
+
+
+# files to dump received data into
+if set -ql _flag_m
+    set header_file $_flag_m
+else
+    set header_file $(mktemp --tmpdir twist_header.XXX)
+end
+if set -ql _flag_o
+    set body_file $_flag_o
+else
+    set body_file $(mktemp --tmpdir twist_body.XXX)
+end
+
+set header_format "%output{$header_file}\
+Content-Type: %header{content-type}
+Date: %header{date}
+Connection: %header{connection}
+Keep-Alive: %header{keep-alive}
+Transfer-Encoding: %header{transfer-encoding}"
+
+
+# this is where the *magic* happens
+if set -ql _flag_send
+    curl --write-out $header_format \
+        -X $argv[1] $argv[2] \
+        --json "$(cat $_flag_send)" \
+        > $body_file
+else
+    curl --write-out $header_format \
+        -X $argv[1] $argv[2] \
+        > $body_file
+end
+
+
+# print out the received data
+# HTTP headers
+bat --language YAML --file-name 'HEADER' $header_file
+
+# response body
+if set -ql _flag_t
+    bat --language $_flag_t --file-name 'BODY' $body_file
+else
+    echo 'BODY'
+    jq . $body_file
+end
+
+
+# cleanup
+if not set -ql _flag_m
+    rm $header_file
+end
+if not set -ql _flag_o
+    rm $body_file
+end

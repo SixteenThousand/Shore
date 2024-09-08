@@ -8,3 +8,5 @@ contains:
 - **cond**: Wrapper around a bash if statement. Useful for checking the 
   syntax of `test` conditions.
 - **sorrento**: A loading spinner, *a.k.a*, a Sorrento
+- **twist**: A simple wrapper around cURL that makes HTTP requests very 
+  simple to do.
