@@ -6,6 +6,7 @@ declare -a CMD
 ISDONE=$(mktemp done-XXXX)
 INFO=$(mktemp info-XXXX)
 VERBOSE=""
+DELAY=0.2
 
 # parse arguments
 while [ -n "$1" ]
@@ -37,13 +38,13 @@ fi
 while true
 do
 	printf "$WAIT_MSG | \r"
-	sleep 0.5
+	sleep $DELAY
 	printf "$WAIT_MSG / \r"
-	sleep 0.5
+	sleep $DELAY
 	printf "$WAIT_MSG - \r"
-	sleep 0.5
+	sleep $DELAY
 	printf "$WAIT_MSG \\ \r"
-	sleep 0.5
+	sleep $DELAY
 	if [ -n "$(cat $ISDONE)" ]
 	then
 		printf "\n$END_MSG\n"
