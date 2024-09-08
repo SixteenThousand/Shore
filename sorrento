@@ -4,6 +4,7 @@ WAIT_MSG="Waiting"
 END_MSG="Done!"
 declare -a CMD
 ISDONE=$(mktemp done-XXXX)
+VERBOSE=""
 
 # parse arguments
 while [ -n "$1" ]
@@ -15,6 +16,7 @@ do
 		-e|--end-msg)
 			END_MSG=$2
 			shift 1;;
+		-v|--verbose) VERBOSE=TRUE;;
 		*) CMD+="$1 ";;
 	esac
 	shift 1
@@ -24,7 +26,10 @@ done
 ($CMD && echo "Done!" > $ISDONE) &
 
 # print the command being run
-printf "\x1b[1m-> $CMD\x1b[0m\n"
+if [ -n "$VERBOSE" ]
+then
+	printf "\x1b[1m-> $CMD\x1b[0m\n"
+fi
 
 # display a sorrento/loading spinner
 while true
