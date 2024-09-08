@@ -8,10 +8,42 @@ INFO=$(mktemp info-XXXX)
 VERBOSE=""
 DELAY=0.2
 
+function print_help {
+	cat <<- EOF
+	sorrento loading spinner, part of the Shore suite, v0.1
+	Usage:
+	sorrento [[-w|--wait-msg] WAITING_MESSAGE] 
+		[[-e|--end-msg] END_MESSAGE] [-v|--verbose] COMMAND ARGUMENTS...
+	
+	Sorrento runs COMMAND with ARGUMENTS in the background, and displays
+	WAITING_MESSAGE with a loading spinner (a.k.a a Sorrento) while COMMAND
+	runs. Can also display more information if the --verbose flag is used.
+	
+	Flags:
+	-w | --wait-msg
+		Message to be displayed while waiting for COMMAND to finish.
+		Default is "Waiting"
+	-e | --end-msg
+		Message to display once COMMAND is finished.
+		Default is "Done!"
+	-v | --verbose
+		Print extra information about what is being run. Currently prints
+		- COMMAND and ARGUMENTS
+		- the time taken for COMMAND to run
+		- the memory used by COMMAND
+	-h | --help
+		print this help message
+	
+	Notes:
+	- GNU time is needed to run sorrento
+	EOF
+}
+
 # parse arguments
 while [ -n "$1" ]
 do
 	case $1 in
+		-h|--help) print_help;;
 		-w|--wait-msg) 
 			WAIT_MSG=$2
 			shift 1;;
