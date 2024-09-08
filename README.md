@@ -10,3 +10,7 @@ contains:
 - **sorrento**: A loading spinner, *a.k.a*, a Sorrento
 - **twist**: A simple wrapper around cURL that makes HTTP requests very 
   simple to do.
+
+For more information, please the relevant file for each script; 
+alternatively, you could download the script, and run it with the `--help` 
+flag.
