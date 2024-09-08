@@ -4,6 +4,7 @@ WAIT_MSG="Waiting"
 END_MSG="Done!"
 declare -a CMD
 ISDONE=$(mktemp done-XXXX)
+INFO=$(mktemp info-XXXX)
 VERBOSE=""
 
 # parse arguments
@@ -22,10 +23,11 @@ do
 	shift 1
 done
 
+# set formatting of time info
+export TIME="Time taken: %E\nMemory used: %Mkb"
 # run the command
-($CMD && echo "Done!" > $ISDONE) &
+(env time $CMD 2> $INFO && echo "Done" > $ISDONE) &
 
-# print the command being run
 if [ -n "$VERBOSE" ]
 then
 	printf "\x1b[1m-> $CMD\x1b[0m\n"
@@ -45,9 +47,16 @@ do
 	if [ -n "$(cat $ISDONE)" ]
 	then
 		printf "\n$END_MSG\n"
+		if [ -n "$VERBOSE" ]
+		then
+			printf "\n"
+			cat $INFO
+			printf "\x1b[1m+++\x1b[0m\n"
+		fi
 		echo "" > $ISDONE
 		break
 	fi
 done
 
 rm $ISDONE
+rm $INFO
