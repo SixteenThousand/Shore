@@ -47,7 +47,8 @@ do
 	sleep $DELAY
 	if [ -n "$(cat $ISDONE)" ]
 	then
-		printf "\n$END_MSG\n"
+		# note this overwrites the wait message
+		printf "$END_MSG\x1b[8m$WAIT_MSG    \x1b[0m\n"
 		if [ -n "$VERBOSE" ]
 		then
 			printf "\n"
