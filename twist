@@ -22,12 +22,18 @@ OPTIONS:
     header data. If unspecified, dumps it into a temporary file.
 -o | --body-output : The name of a file in which to dump the received
     header data. If unspecified, dumps it into a temporary file.
--v | --version : print version information"
+-v | --version : print version information
+
+NOTES:
+- Twist has the following dependencies:
+    - jq: https://sr.ht/~gpanders/ijq/
+    - bat: https://github.com/sharkdp/bat
+    - fish: https://fishshell.com/"
     return 0
 end
 
 if set -ql _flag_version
-    echo "twist version 1.1"
+    echo "twist version 1.2"
     return 0
 end
 
