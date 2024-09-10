@@ -3,8 +3,6 @@
 WAIT_MSG="Waiting"
 END_MSG="Done!"
 declare -a CMD
-ISDONE=$(mktemp done-XXXX)
-INFO=$(mktemp info-XXXX)
 VERBOSE=""
 DELAY=0.2
 
@@ -56,6 +54,12 @@ do
 	esac
 	shift 1
 done
+
+
+# completion indicator file; we are done when this is non-empty
+ISDONE=$(mktemp done-XXXX)
+# stats file; store output of GNU time
+INFO=$(mktemp info-XXXX)
 
 # set formatting of time info
 export TIME="Time taken: %E\nMemory used: %Mkb"
