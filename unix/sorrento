@@ -13,7 +13,7 @@ function print_help {
 	sorrento loading spinner, v1.0 [part of the Shore suite]
 	Usage:
 	sorrento [[-w|--wait-msg] WAITING_MESSAGE] 
-		[[-e|--end-msg] END_MESSAGE] [-v|--verbose] COMMAND ARGUMENTS...
+	    [[-e|--end-msg] END_MESSAGE] [-v|--verbose] COMMAND ARGUMENTS...
 	
 	Sorrento runs COMMAND with ARGUMENTS in the background, and displays
 	WAITING_MESSAGE with a loading spinner (a.k.a a Sorrento) while COMMAND
@@ -21,22 +21,23 @@ function print_help {
 	
 	Flags:
 	-w | --wait-msg
-		Message to be displayed while waiting for COMMAND to finish.
-		Default is "Waiting"
+	    Message to be displayed while waiting for COMMAND to finish.
+	    Default is "Waiting"
 	-e | --end-msg
-		Message to display once COMMAND is finished.
-		Default is "Done!"
+	    Message to display once COMMAND is finished.
+	    Default is "Done!"
 	-v | --verbose
-		Print extra information about what is being run. Currently prints
-		- COMMAND and ARGUMENTS
-		- the time taken for COMMAND to run
-		- the memory used by COMMAND
+	    Print extra information about what is being run. Currently prints
+	    - COMMAND and ARGUMENTS
+	    - the time taken for COMMAND to run
+	    - the memory used by COMMAND
 	-h | --help
-		print this help message
+	    print this help message
 	
 	Notes:
 	- GNU time is needed to run sorrento
 	EOF
+	exit 0
 }
 
 # parse arguments
