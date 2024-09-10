@@ -1,0 +1,19 @@
+#!/bin/sh
+
+TEX_FILE=$1.tex
+AUX_DIR=$(mktemp --directory aux-XXX)
+
+cat >> $TEX_FILE <<- EOF
+\documentclass[a4paper,12pt]{article}
+
+\begin{document}
+
+$(cat $1)
+
+\end{document} 
+EOF
+
+pdflatex -output-directory $AUX_DIR $TEX_FILE 
+mv $AUX_DIR/$1.pdf .
+rm -r $AUX_DIR
+rm $TEX_FILE
