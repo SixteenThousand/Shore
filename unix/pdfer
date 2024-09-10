@@ -1,5 +1,20 @@
 #!/bin/sh
 
+case $1 in
+	-h|--help)
+		cat <<- EOF
+		This is PDFer v0.0, a simple pdf-generating script!
+		Usage:
+		pdfer FILE
+		    This makes a pdf with just the text of FILE init.
+		    It uses latex to do this, do if you want to add some \\textit{} 
+		    or whatever to get some formatting, that'll work just fine.
+		EOF
+		exit 0
+	;;
+esac
+
+
 TEX_FILE=$1.tex
 AUX_DIR=$(mktemp --directory aux-XXX)
 
