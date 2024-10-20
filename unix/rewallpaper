@@ -1,7 +1,34 @@
 #!/bin/sh
 
+mode=stretch
+
+while :
+do
+	case $1 in
+		-m|--mode)
+			mode=$2
+			shift 1;;
+		-d|--desktop) desktop=true;;
+		*) name=$1;;
+	esac
+	if [ -z "$@" ]
+	then
+		break
+	fi
+	shift 1
+done
 
 killall swaybg
-NEW_WALLPAPER=$(ls --color=never ~/Pictures/Profile_Pics | fzf)
-swaybg --image ~/Pictures/Profile_Pics/$NEW_WALLPAPER & disown
-unset NEW_WALLPAPER
+
+if [ -z "$desktop" ]
+then
+	if [ -z "$name" ]
+	then
+		name=$(ls --color=never $HOME/Pictures/Profile_Pics | fzf)
+	fi
+	new_wallpaper="$HOME/Pictures/Profile_Pics/$name"
+else
+	new_wallpaper=$(find /usr/share/wallpapers -path '*contents/images*/*' | fzf)
+fi
+
+swaybg --image "$new_wallpaper" --mode $mode & disown
