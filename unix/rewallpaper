@@ -1,0 +1,7 @@
+#!/bin/sh
+
+
+killall swaybg
+NEW_WALLPAPER=$(ls --color=never ~/Pictures/Profile_Pics | fzf)
+swaybg --image ~/Pictures/Profile_Pics/$NEW_WALLPAPER & disown
+unset NEW_WALLPAPER

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$1" = "-h" ]
+then
+	cat <<- EOF
+	ls-apps
+	A tool to list everything on your \$PATH
+	EOF
+	exit 0
+fi
+
+echo $PATH \
+	| sed 's/:/ /g' \
+	| xargs ls 2>/dev/null

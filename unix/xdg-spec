@@ -1,0 +1,18 @@
+#!/bin/sh
+
+case $1 in
+	XDG_CONFIG_HOME)
+		echo ${XDG_CONFIG_HOME:-$HOME/.config};;
+	XDG_DATA_HOME)
+		echo ${XDG_DATA_HOME:-$HOME/.local/share};;
+	XDG_STATE_HOME)
+		echo ${XDG_STATE_HOME:-$HOME/.local/state};;
+	XDG_DATA_DIRS)
+		echo ${XDG_DATA_DIRS:-/usr/local/share:/usr/share/};;
+	XDG_CONFIG_DIRS)
+		echo ${XDG_CONFIG_DIRS:-/etc/xdg};;
+	XDG_CACHE_HOME)
+		echo ${XDG_CACHE_HOME:-$HOME/.cache};;
+	XDG_RUNTIME_DIR)
+		echo ${XDG_RUNTIME_DIR:- ¯\_ (ツ)_/¯};;
+esac
