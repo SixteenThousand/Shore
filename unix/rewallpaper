@@ -1,14 +1,21 @@
 #!/bin/sh
 
-mode=stretch
+swaybg_mode=stretch
+gui_type=x11
+screen_resolution='1920x1080'
 
 while :
 do
 	case $1 in
 		-m|--mode)
-			mode=$2
+			swaybg_mode=$2
 			shift 1;;
-		-d|--desktop) desktop=true;;
+		-g|--gui-type)
+			gui_type=$2
+			shift 1;;
+		-r|--resolution)
+			screen_resolution=$2
+			shift 1;;
 		*) name=$1;;
 	esac
 	if [ -z "$@" ]
@@ -18,17 +25,17 @@ do
 	shift 1
 done
 
-killall swaybg
 
-if [ -z "$desktop" ]
-then
-	if [ -z "$name" ]
-	then
-		name=$(ls --color=never $HOME/Pictures/Profile_Pics | fzf)
-	fi
-	new_wallpaper="$HOME/Pictures/Profile_Pics/$name"
-else
-	new_wallpaper=$(find /usr/share/wallpapers -path '*contents/images*/*' | fzf)
-fi
+personal=$(find -L $HOME/Pictures/Profile_Pics -type f)
+desktops=$(find -L /usr/share/wallpapers -type f -name '1920x1080*')
 
-swaybg --image "$new_wallpaper" --mode $mode & disown
+new_wallpaper=$(echo -e "$personal\n$desktops" | fzf)
+
+case $gui_type in
+	wayland)
+		swaybg --image "$new_wallpaper" --mode "$swaybg_mode" & disown;;
+	x11)
+		feh --bg-fill "$new_wallpaper";;
+esac
+
+echo "Set wallpaper to $new_wallpaper!"
