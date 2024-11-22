@@ -27,7 +27,7 @@ done
 
 
 personal=$(find -L $HOME/Pictures/Profile_Pics -type f)
-desktops=$(find -L /usr/share/wallpapers -type f -name '1920x1080*')
+desktops=$(find -L /usr/share/wallpapers -type f -name '1920x1080*' -o -name '5120x2880*')
 
 new_wallpaper=$(echo -e "$personal\n$desktops" | fzf)
 
