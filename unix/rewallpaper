@@ -46,6 +46,12 @@ desktops=$(find -L /usr/share/wallpapers -type f -name '1920x1080*' -o -name '51
 
 new_wallpaper=$(echo -e "$personal\n$desktops" | fzf)
 
+if [ -z "$new_wallpaper" ]
+then
+	echo "No wallpaper selected!"
+	exit 0
+fi
+
 case $gui_type in
 	wayland)
 		swaybg --image "$new_wallpaper" --mode "$swaybg_mode" & disown;;
