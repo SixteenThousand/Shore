@@ -7,6 +7,21 @@ screen_resolution='1920x1080'
 while :
 do
 	case $1 in
+		-h|--help)
+			cat <<- EOF
+			rewallpaper, a wallpaper-changing script
+			
+			Flags:
+			    -g|--gui-type x11|wayland
+			Specify whether to use feh (x11) or swaybg (wayland) to set the wallpaper
+			    -m|--mode SWAYBG_MODE
+			Passes the argument on to the falg of the same name f swaybg.
+			Defaults to "stretch"
+			    -r|--resolution MONITOR_RESOLUTION
+			The monitor resolution in pixels, in the format {width}x{height},
+			E.g. 1920x1080.
+			EOF
+			exit 0;;
 		-m|--mode)
 			swaybg_mode=$2
 			shift 1;;
