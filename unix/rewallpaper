@@ -28,8 +28,8 @@ case $1 in
 esac
 
 swaybg_wrap() {
-	swaybg --mode stretch --image $1
-	echo "swaybg --mode stretch --image $1" > ~/.swaybg
+	swaybg --mode stretch --image $1 & disown
+	echo "swaybg --mode stretch --image $1 & disown" > ~/.swaybg
 	chmod +x ~/.swaybg
 }
 	
@@ -37,7 +37,7 @@ swaybg_wrap() {
 cmd='feh --bg-fill'
 if [ "$XDG_CURRENT_DESKTOP" = KDE ]
 then
-	cmd='plasma-apply-wallpaperimage --fill-mode stretch'
+	cmd='plasma-apply-wallpaperimage --fill-mode preserveAspectCrop'
 elif pgrep swaybg 2>&1 >/dev/null
 then
 	cmd=swaybg_wrap
