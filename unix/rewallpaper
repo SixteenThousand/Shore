@@ -28,8 +28,9 @@ case $1 in
 esac
 
 swaybg_wrap() {
-	swaybg --mode stretch --image $1 & disown
-	echo "swaybg --mode stretch --image $1 & disown" > ~/.swaybg
+	killall swaybg
+	swaybg --mode fill --image $1 & disown
+	echo "swaybg --mode fill --image $1 & disown" > ~/.swaybg
 	chmod +x ~/.swaybg
 }
 	
